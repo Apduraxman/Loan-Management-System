@@ -90,8 +90,8 @@ $db = new db_class();
 					</div>
 					<button class="mb-2 btn btn-lg btn-success" href="#" data-toggle="modal" data-target="#addModal"><span class="fa fa-plus"></span> Create new Loan Application</button>
 					<!-- Report Button -->
-					<a href="?report=1" class="btn btn-info mb-3" target="_blank">
-						<i class="fas fa-file-alt"></i> Generate Report
+					<a href="report.php?type=loan" class="btn btn-info mb-3 noprint" target="_blank">
+						<i class="fas fa-file-alt"></i> Generate Loan Report
 					</a>
 					<!-- DataTales Example -->
 					<div class="card shadow mb-4">

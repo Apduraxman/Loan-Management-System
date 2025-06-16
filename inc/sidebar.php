@@ -55,5 +55,12 @@
                     <i class="fas fa-fw fa-user"></i>
                     <span>Users</span></a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="report.php">
+                    <i class="fas fa-fw fa-file-alt"></i>
+                    <span>Reports</span>
+                </a>
+            </li>
         </ul>
+
         <!-- End of Sidebar -->
