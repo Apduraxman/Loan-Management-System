@@ -211,8 +211,16 @@ class db_class extends db_connect
 		}
 	}
 
+	//  delete all guarantors for this borrower
+
 	public function delete_borrower($borrower_id)
 	{
+		// First, delete all invest_product records for this borrower
+		$this->conn->query("DELETE FROM invest_product WHERE borrower_id = '$borrower_id'");
+
+		// Then, delete all guarantors for this borrower
+		$this->conn->query("DELETE FROM guarantor WHERE borrower_id = '$borrower_id'");
+
 		$query = $this->conn->prepare("DELETE FROM `borrower` WHERE `borrower_id` = '$borrower_id'") or die($this->conn->error);
 		if ($query->execute()) {
 			$query->close();
@@ -335,15 +343,13 @@ class db_class extends db_connect
 		}
 	}
 
-	public function save_payment($loan_id, $payee, $payment, $penalty, $overdue)
+	public function save_payment($loan_id, $payee, $pay_amount, $penalty, $overdue, $payment_date)
 	{
-		$query = $this->conn->prepare("INSERT INTO `payment` (`loan_id`, `payee`, `pay_amount`, `penalty`, `overdue`) VALUES(?, ?, ?, ?, ?)") or die($this->conn->error);
-		$query->bind_param("isssi", $loan_id, $payee, $payment, $penalty, $overdue);
+		$query = $this->conn->prepare("INSERT INTO `payment` (`loan_id`, `payee`, `pay_amount`, `penalty`, `overdue`, `payment_date`) VALUES (?, ?, ?, ?, ?, ?)") or die($this->conn->error);
+		$query->bind_param("isssis", $loan_id, $payee, $pay_amount, $penalty, $overdue, $payment_date);
 
 		if ($query->execute()) {
 			$query->close();
-			// ❌ REMOVE THIS LINE
-			// $this->conn->close();
 			return true;
 		}
 	}
@@ -367,7 +373,7 @@ class db_class extends db_connect
 		$query = $this->conn->query("SELECT * FROM invest_product") or die($this->conn->error);
 		return $query;
 	}
-
+	// Delete an investment product by ID
 	public function delete_invest_product($product_id)
 	{
 		$query = $this->conn->prepare("DELETE FROM invest_product WHERE product_id = ?") or die($this->conn->error);
@@ -497,22 +503,72 @@ class db_class extends db_connect
 
 	/* Guarantor  Function */
 
-
-	public function add_guarantor($name, $email, $phone, $relationship, $loan_id)
+	// Add a new guarantor
+	public function add_guarantor($borrower_id, $full_name, $gender, $address, $contact, $job, $company_name, $national_id, $documentation)
 	{
-		$query = $this->conn->prepare("INSERT INTO guarantors (name, email, phone, relationship, loan_id) VALUES (?, ?, ?, ?, ?)") or die($this->conn->error);
-		$query->bind_param("ssssi", $name, $email, $phone, $relationship, $loan_id);
+		$query = $this->conn->prepare("INSERT INTO guarantor (borrower_id, full_name, gender, address, contact, job, company_name, national_id, documentation) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)") or die($this->conn->error);
+		$query->bind_param("issssssss", $borrower_id, $full_name, $gender, $address, $contact, $job, $company_name, $national_id, $documentation);
 
 		if ($query->execute()) {
 			$query->close();
-			$this->conn->close();
 			return true;
 		}
 	}
+
 	// Fetch all guarantors from the database
 	public function display_guarantors()
 	{
 		$query = $this->conn->query("SELECT * FROM guarantor") or die($this->conn->error);
 		return $query;
 	}
+
+	// Delete a guarantor by ID
+	public function delete_guarantor($guarantor_id)
+	{
+		$query = $this->conn->prepare("DELETE FROM guarantor WHERE guarantor_id = ?") or die($this->conn->error);
+		$query->bind_param("i", $guarantor_id);
+		if ($query->execute()) {
+			$query->close();
+			return true;
+		}
+	}
+
+	// Update an existing guarantor
+	public function update_guarantor($guarantor_id, $borrower_id, $full_name, $gender, $address, $contact, $job, $company_name, $national_id, $documentation = null)
+	{
+		if ($documentation !== null) {
+			$query = $this->conn->prepare("UPDATE guarantor SET borrower_id=?, full_name=?, gender=?, address=?, contact=?, job=?, company_name=?, national_id=?, documentation=? WHERE guarantor_id=?") or die($this->conn->error);
+			$query->bind_param("issssssssi", $borrower_id, $full_name, $gender, $address, $contact, $job, $company_name, $national_id, $documentation, $guarantor_id);
+		} else {
+			$query = $this->conn->prepare("UPDATE guarantor SET borrower_id=?, full_name=?, gender=?, address=?, contact=?, job=?, company_name=?, national_id=? WHERE guarantor_id=?") or die($this->conn->error);
+			$query->bind_param("isssssssi", $borrower_id, $full_name, $gender, $address, $contact, $job, $company_name, $national_id, $guarantor_id);
+		}
+
+		if ($query->execute()) {
+			$query->close();
+			return true;
+		}
+	}
+
+	// Fetch a single guarantor by ID
+	public function get_guarantor($guarantor_id)
+	{
+		$conn = $this->conn;
+		$stmt = $conn->prepare("SELECT * FROM guarantor WHERE guarantor_id = ?");
+		$stmt->bind_param("i", $guarantor_id);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		return $result->fetch_assoc();
+	}
+
+	// // Fetch all loan requests for a specific customer
+	// public function get_loan_requests_by_customer($customer_id)
+	// {
+	// 	$stmt = $this->conn->prepare("SELECT * FROM loan_requests WHERE customer_id = ?");
+	// 	$stmt->bind_param("i", $customer_id);
+	// 	$stmt->execute();
+	// 	$result = $stmt->get_result();
+	// 	return $result;
+	// }
+
 }

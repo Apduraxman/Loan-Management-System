@@ -103,6 +103,7 @@ $db = new db_class();
                                             <th>Payee</th>
                                             <th>Amount</th>
                                             <th>Penalty</th>
+                                            <th>Payment Date</th> <!-- Add this line -->
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -117,6 +118,7 @@ $db = new db_class();
                                                 <td><?php echo $fetch['payee'] ?></td>
                                                 <td><?php echo "&#36; " . number_format($fetch['pay_amount'], 2) ?></td>
                                                 <td><?php echo "&#36; " . number_format($fetch['penalty'], 2) ?></td>
+                                                <td><?php echo htmlspecialchars($fetch['payment_date']); ?></td> <!-- Add this line -->
                                             </tr>
 
                                         <?php
@@ -183,6 +185,10 @@ $db = new db_class();
                                         ?>
                                     </select>
                                 </div>
+                            </div>
+                            <div class="form-group col-xl-5 col-md-5">
+                                <label>Payment Date</label>
+                                <input type="date" name="payment_date" class="form-control" required="required" value="<?php echo date('Y-m-d'); ?>" />
                             </div>
                             <div id="formField"></div>
                         </div>

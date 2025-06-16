@@ -121,8 +121,8 @@ $db = new db_class();
                                                 Payments Today</div>
                                             <div class="h1 mb-0 font-weight-bold text-gray-800">
                                                 <?php
-                                                $tbl_payment = $db->conn->query("SELECT sum(pay_amount) as total FROM `payment` WHERE date(date_created)='" . date("Y-m-d") . "'");
-                                                echo $tbl_payment->num_rows > 0 ? "&#36; " . number_format($tbl_payment->fetch_array()['total'], 2) : "&#8369; 0.00";
+                                                $sum = $db->conn->query("SELECT sum(pay_amount) as total FROM payment WHERE payment_date = CURDATE()");
+                                                echo $sum->num_rows > 0 ? "&#36; " . number_format($sum->fetch_array()['total'], 2) : "&#8369; 0.00";
                                                 ?>
                                             </div>
                                         </div>

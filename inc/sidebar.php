@@ -11,7 +11,8 @@
             <li class="nav-item active">
                 <a class="nav-link" href="home.php">
                     <i class="fas fa-fw fa-home"></i>
-                    <span>Dashboard</span></a>
+                    <span>Dashboard</span>
+                </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="loan.php">

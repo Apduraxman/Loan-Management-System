@@ -68,6 +68,8 @@ $db = new db_class();
                                             <th>Contact</th>
                                             <th>Job</th>
                                             <th>Company Name</th>
+                                            <th>National ID</th>
+                                            <th>Documentation</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -85,6 +87,14 @@ $db = new db_class();
                                                 <td><?php echo htmlspecialchars($row['contact']); ?></td>
                                                 <td><?php echo htmlspecialchars($row['job']); ?></td>
                                                 <td><?php echo htmlspecialchars($row['company_name']); ?></td>
+                                                <td><?php echo htmlspecialchars($row['national_id']); ?></td>
+                                                <td>
+                                                    <?php if ($row['documentation']) { ?>
+                                                        <a href="uploads/<?php echo htmlspecialchars($row['documentation']); ?>" target="_blank">View</a>
+                                                    <?php } else {
+                                                        echo 'No file';
+                                                    } ?>
+                                                </td>
                                                 <td>
                                                     <div class="dropdown">
                                                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton<?php echo $row['guarantor_id']; ?>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -101,7 +111,7 @@ $db = new db_class();
                                             <!-- Update Modal -->
                                             <div class="modal fade" id="updateGuarantor<?php echo $row['guarantor_id']; ?>" tabindex="-1" aria-hidden="true">
                                                 <div class="modal-dialog">
-                                                    <form method="POST" action="update_guarantor.php">
+                                                    <form method="POST" action="update_guarantor.php" enctype="multipart/form-data">
                                                         <div class="modal-content">
                                                             <div class="modal-header bg-warning">
                                                                 <h5 class="modal-title text-white">Edit Guarantor</h5>
@@ -141,7 +151,9 @@ $db = new db_class();
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>Contact</label>
-                                                                    <input type="text" name="contact" value="<?php echo htmlspecialchars($row['contact']); ?>" class="form-control" required />
+                                                                    <input type="text" name="contact" value="<?php echo htmlspecialchars($row['contact']); ?>" class="form-control"
+                                                                        placeholder="Eg.[0634345678]" pattern="[0-9]{10}"
+                                                                        required />
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>Job</label>
@@ -150,6 +162,14 @@ $db = new db_class();
                                                                 <div class="form-group">
                                                                     <label>Company Name</label>
                                                                     <input type="text" name="company_name" value="<?php echo htmlspecialchars($row['company_name']); ?>" class="form-control" required />
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label>National ID</label>
+                                                                    <input type="text" name="national_id" value="<?php echo htmlspecialchars($row['national_id']); ?>" class="form-control" required />
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label>Documentation (leave blank to keep current)</label>
+                                                                    <input type="file" name="documentation" class="form-control" />
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">
@@ -202,7 +222,7 @@ $db = new db_class();
         <!-- Add Modal-->
         <div class="modal fade" id="addModal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog">
-                <form method="POST" action="save_guarantor.php">
+                <form method="POST" action="save_guarantor.php" enctype="multipart/form-data">
                     <div class="modal-content">
                         <div class="modal-header bg-primary">
                             <h5 class="modal-title text-white">Add Guarantor</h5>
@@ -213,7 +233,7 @@ $db = new db_class();
                         <div class="modal-body">
                             <div class="form-group">
                                 <label>Borrower</label>
-                                <select name="borrower_id" class="form-control" required>
+                                <select name="borrower_id" class="form-control" required="required">
                                     <option value="">Select Borrower</option>
                                     <?php
                                     $borrowers = $db->display_borrower();
@@ -225,11 +245,11 @@ $db = new db_class();
                             </div>
                             <div class="form-group">
                                 <label>Full Name</label>
-                                <input type="text" name="full_name" class="form-control" required />
+                                <input type="text" name="full_name" class="form-control" required="required" />
                             </div>
                             <div class="form-group">
                                 <label>Gender</label>
-                                <select name="gender" class="form-control" required>
+                                <select name="gender" class="form-control" required="required">
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
                                     <option value="Other">Other</option>
@@ -237,19 +257,27 @@ $db = new db_class();
                             </div>
                             <div class="form-group">
                                 <label>Address</label>
-                                <input type="text" name="address" class="form-control" required />
+                                <input type="text" name="address" class="form-control" required="required" />
                             </div>
                             <div class="form-group">
                                 <label>Contact</label>
-                                <input type="text" name="contact" class="form-control" required />
+                                <input type="text" name="contact" class="form-control" placeholder="Eg.[0634345678]" pattern="[0-9]{10}" required="required" />
                             </div>
                             <div class="form-group">
                                 <label>Job</label>
-                                <input type="text" name="job" class="form-control" required />
+                                <input type="text" name="job" class="form-control" required="required" />
                             </div>
                             <div class="form-group">
                                 <label>Company Name</label>
-                                <input type="text" name="company_name" class="form-control" required />
+                                <input type="text" name="company_name" class="form-control" required="required" />
+                            </div>
+                            <div class="form-group">
+                                <label>National ID</label>
+                                <input type="text" name="national_id" class="form-control" required="required" />
+                            </div>
+                            <div class="form-group">
+                                <label>Documentation</label>
+                                <input type="file" name="documentation" class="form-control" required="required" />
                             </div>
                         </div>
                         <div class="modal-footer">

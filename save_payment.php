@@ -12,6 +12,7 @@ if (isset($_POST['save'])) {
     $payable = str_replace(",", "", $_POST['payable']);
     $payment = $_POST['payment'];
     $month = $_POST['month'];
+    $payment_date = $_POST['payment_date'];
 
     // Determine overdue status
     $overdue = ($penalty == 0) ? 0 : 1;
@@ -23,7 +24,9 @@ if (isset($_POST['save'])) {
         exit();
     } else {
         // Save payment to database
-        $db->save_payment($loan_id, $payee, $payment, $penalty, $overdue);
+        $stmt = $db->conn->prepare("INSERT INTO payment (loan_id, payee, pay_amount, penalty, overdue, payment_date) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("isssis", $loan_id, $payee, $payment, $penalty, $overdue, $payment_date);
+        $stmt->execute();
 
         // Count how many payments are already made
         $count_pay_query = $db->conn->query("SELECT * FROM `payment` WHERE `loan_id` = '$loan_id'");
@@ -49,4 +52,3 @@ if (isset($_POST['save'])) {
         exit();
     }
 }
-?>

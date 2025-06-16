@@ -89,6 +89,10 @@ $db = new db_class();
 						<h1 class="h3 mb-0 text-gray-800">Loan List</h1>
 					</div>
 					<button class="mb-2 btn btn-lg btn-success" href="#" data-toggle="modal" data-target="#addModal"><span class="fa fa-plus"></span> Create new Loan Application</button>
+					<!-- Report Button -->
+					<a href="?report=1" class="btn btn-info mb-3" target="_blank">
+						<i class="fas fa-file-alt"></i> Generate Report
+					</a>
 					<!-- DataTales Example -->
 					<div class="card shadow mb-4">
 						<div class="card-body">
@@ -669,6 +673,7 @@ $db = new db_class();
 				$('#dataTable').DataTable();
 			});
 		</script>
+
 
 </body>
 
