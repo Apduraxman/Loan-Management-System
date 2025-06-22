@@ -1,5 +1,5 @@
 <?php
-require_once 'class.php';
+require_once 'admin/class.php';
 $db = new db_class();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -20,6 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!doctype html>
 <html class="no-js" lang="en">
+
 <head>
     <meta charset="utf-8">
     <title>Customer Registration</title>
@@ -37,105 +38,107 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="assets/css/slick.css">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
 <body>
 
-<!-- Header Start -->
-<header>
-    <div class="header-area header-transparent">
-        <div class="main-header header-sticky">
-            <div class="container-fluid">
-                <div class="row align-items-center">
-                    <div class="col-xl-2 col-lg-2 col-md-1">
-                        <div class="logo">
-                            <a href="index.html"><img src="assets/img/logo/logo.png" alt="Logo"></a>
+    <!-- Header Start -->
+    <header>
+        <div class="header-area header-transparent">
+            <div class="main-header header-sticky">
+                <div class="container-fluid">
+                    <div class="row align-items-center">
+                        <div class="col-xl-2 col-lg-2 col-md-1">
+                            <div class="logo">
+                                <a href="index.html"><img src="assets/img/logo/logo.png" alt="Logo"></a>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mobile_menu d-block d-lg-none"></div>
                         </div>
                     </div>
-                    <div class="col-12">
-                        <div class="mobile_menu d-block d-lg-none"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Header End -->
+
+    <!-- Hero Area Start -->
+    <div class="slider-area">
+        <div class="single-slider slider-height2 d-flex align-items-center hero-overly">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="hero-cap text-center">
+                            <h2>Customer Registration</h2>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</header>
-<!-- Header End -->
 
-<!-- Hero Area Start -->
-<div class="slider-area">
-    <div class="single-slider slider-height2 d-flex align-items-center hero-overly">
+    <!-- Registration Form -->
+    <section class="contact-section">
         <div class="container">
-            <div class="row">
-                <div class="col-xl-12">
-                    <div class="hero-cap text-center">
-                        <h2>Customer Registration</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="form-wrapper mt-5">
+
+                        <form method="POST" class="form-contact contact_form">
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input type="text" name="name" class="form-control" required placeholder="Enter your name">
+                            </div>
+                            <div class="form-group">
+                                <label>Email address</label>
+                                <input type="email" name="email" class="form-control" required placeholder="Enter email">
+                            </div>
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input type="password" name="password" class="form-control" required placeholder="Enter password">
+                            </div>
+                            <div class="form-group">
+                                <label>Phone</label>
+                                <input type="text" name="phone" class="form-control" placeholder="Enter phone number">
+                            </div>
+                            <div class="form-group">
+                                <label>Address</label>
+                                <textarea name="address" class="form-control" placeholder="Enter your address"></textarea>
+                            </div>
+                            <div class="form-group mt-3">
+                                <button type="submit" class="btn btn-primary w-100">Register</button>
+                            </div>
+                            <div class="form-group mt-2 text-center">
+                                <a href="customer_login.php" class="btn btn-outline-secondary btn-sm">Already have an account?</a>
+                            </div>
+                        </form>
+
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+    </section>
 
-<!-- Registration Form -->
-<section class="contact-section">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-6">
-                <div class="form-wrapper mt-5">
-
-                    <form method="POST" class="form-contact contact_form">
-                        <div class="form-group">
-                            <label>Name</label>
-                            <input type="text" name="name" class="form-control" required placeholder="Enter your name">
-                        </div>
-                        <div class="form-group">
-                            <label>Email address</label>
-                            <input type="email" name="email" class="form-control" required placeholder="Enter email">
-                        </div>
-                        <div class="form-group">
-                            <label>Password</label>
-                            <input type="password" name="password" class="form-control" required placeholder="Enter password">
-                        </div>
-                        <div class="form-group">
-                            <label>Phone</label>
-                            <input type="text" name="phone" class="form-control" placeholder="Enter phone number">
-                        </div>
-                        <div class="form-group">
-                            <label>Address</label>
-                            <textarea name="address" class="form-control" placeholder="Enter your address"></textarea>
-                        </div>
-                        <div class="form-group mt-3">
-                            <button type="submit" class="btn btn-primary w-100">Register</button>
-                        </div>
-                        <div class="form-group mt-2 text-center">
-                            <a href="customer_login.php" class="btn btn-outline-secondary btn-sm">Already have an account?</a>
-                        </div>
-                    </form>
-
-                </div>
+    <!-- Footer Start -->
+    <footer>
+        <div class="footer-wrappr">
+            <div class="container text-center py-4">
+                <p class="text-muted mb-0">&copy; <?= date("Y") ?> Loan Management System. All rights reserved.</p>
             </div>
         </div>
-    </div>
-</section>
+    </footer>
 
-<!-- Footer Start -->
-<footer>
-    <div class="footer-wrappr">
-        <div class="container text-center py-4">
-            <p class="text-muted mb-0">&copy; <?= date("Y") ?> Loan Management System. All rights reserved.</p>
-        </div>
-    </div>
-</footer>
-
-<!-- JS Files -->
-<script src="assets/js/vendor/jquery-1.12.4.min.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
-<script src="assets/js/jquery.slicknav.min.js"></script>
-<script src="assets/js/owl.carousel.min.js"></script>
-<script src="assets/js/slick.min.js"></script>
-<script src="assets/js/wow.min.js"></script>
-<script src="assets/js/jquery.magnific-popup.js"></script>
-<script src="assets/js/jquery.nice-select.min.js"></script>
-<script src="assets/js/main.js"></script>
+    <!-- JS Files -->
+    <script src="assets/js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/jquery.slicknav.min.js"></script>
+    <script src="assets/js/owl.carousel.min.js"></script>
+    <script src="assets/js/slick.min.js"></script>
+    <script src="assets/js/wow.min.js"></script>
+    <script src="assets/js/jquery.magnific-popup.js"></script>
+    <script src="assets/js/jquery.nice-select.min.js"></script>
+    <script src="assets/js/main.js"></script>
 
 </body>
+
 </html>

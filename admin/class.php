@@ -245,29 +245,44 @@ class db_class extends db_connect
 
 	public function save_loan($borrower, $ltype, $lplan, $loan_amount, $purpose, $date_created)
 	{
-		$ref_no = mt_rand(1, 99999999);
+		// Hel contact_no ee borrower ka
+		$get_contact = $this->conn->prepare("SELECT contact_no FROM borrower WHERE borrower_id = ?");
+		$get_contact->bind_param("i", $borrower);
+		$get_contact->execute();
+		$contact_no = null;
+		$get_contact->bind_result($contact_no);
+		$found = $get_contact->fetch();
+		$get_contact->close();
 
-		$i = 1;
-
-		while ($i == 1) {
-			$query = $this->conn->prepare("SELECT * FROM `loan` WHERE `ref_no` ='$ref_no' ") or die($this->conn->error);
-
-			$check = $query->num_rows;
-			if ($check > 0) {
-				$ref_no = mt_rand(1, 99999999);
-			} else {
-				$i = 0;
-			}
+		if (!$found || empty($contact_no)) {
+			// Borrower not found or contact_no is empty
+			return false;
 		}
 
+		// Hubi in contact_no hore loogu isticmaalin ref_no
+		$check_ref = $this->conn->prepare("SELECT loan_id FROM loan WHERE ref_no = ?");
+		$check_ref->bind_param("s", $contact_no);
+		$check_ref->execute();
+		$check_ref->store_result();
+
+		if ($check_ref->num_rows > 0) {
+			// Haddii contact_no hore loo isticmaalay, ha samaynin
+			$check_ref->close();
+			return false;
+		}
+		$check_ref->close();
+
+		// Save loan using contact_no as ref_no
 		$query = $this->conn->prepare("INSERT INTO `loan` (`ref_no`, `ltype_id`, `borrower_id`, `purpose`, `amount`, `lplan_id`, `date_created`) VALUES(?, ?, ?, ?, ?, ?, ?)") or die($this->conn->error);
-		$query->bind_param("siisiis", $ref_no, $ltype, $borrower, $purpose, $loan_amount, $lplan, $date_created);
+		$query->bind_param("siisiis", $contact_no, $ltype, $borrower, $purpose, $loan_amount, $lplan, $date_created);
 
 		if ($query->execute()) {
 			$query->close();
 			$this->conn->close();
 			return true;
 		}
+
+		return false;
 	}
 
 	public function display_loan()

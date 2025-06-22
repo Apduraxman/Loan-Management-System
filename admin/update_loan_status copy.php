@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'admin/class.php';
+require_once 'class.php';
 $db = new db_class();
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {

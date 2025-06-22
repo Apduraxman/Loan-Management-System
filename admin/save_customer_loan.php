@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'admin/class.php';
+require_once 'class.php';
 
 if (!isset($_SESSION['customer_id'])) {
     header("Location: customer_login.php");
@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($db->loan_type_exists($loan_type_id) && $db->loan_plan_exists($loan_plan_id)) {
         $success = $db->add_loan_request($customer_id, $loan_type_id, $loan_plan_id, $amount, $reason, $date_needed);
         if ($success) {
-            echo "<script>alert('Loan request submitted successfully.'); window.location='index.php';</script>";
+            echo "<script>alert('Loan request submitted successfully.'); window.location='customer_dashboard.php';</script>";
         } else {
             echo "<script>alert('Failed to submit loan request.'); window.location='request_loan.php';</script>";
         }
@@ -31,3 +31,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else {
     header("Location: request_loan.php");
 }
+?>
