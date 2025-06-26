@@ -30,7 +30,7 @@ session_start();
             <div class="preloader-inner position-relative">
                 <div class="preloader-circle"></div>
                 <div class="preloader-img pere-text">
-                    <img src="assets/img/logo/logo.png" alt="logo">
+                    <img src="assets/img/logo/ips.png" alt="logo">
                 </div>
             </div>
         </div>
@@ -45,7 +45,7 @@ session_start();
                         <!-- Logo -->
                         <div class="col-xl-2 col-lg-2 col-md-1">
                             <div class="logo">
-                                <a href="#"><img src="assets/img/logo/logo.png" alt="Logo"></a>
+                                <a href="#"><img src="assets/img/logo/ips.png" alt="Logo" width="90" height="90" style="width:90px; height:90px;"></a>
                             </div>
                         </div>
                         <!-- Menu -->
