@@ -16,9 +16,9 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="">Loan Management System</a>
-    </nav>
+    </nav> -->
 
     <div class="container">
         <div class="row justify-content-center">
@@ -29,9 +29,9 @@
                             <div class="col-lg-6 d-none d-lg-block"><img src="image/A.jpg" height="100%" width="100%" /></div>
                             <div class="col-lg-6">
                                 <div class="p-5">
-                                    <div class="text-center">
+                                    <!-- <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">USER LOGIN</h1>
-                                    </div>
+                                    </div> -->
 
                                     <!-- Admin Login -->
                                     <form method="POST" class="user" action="login.php">
@@ -63,7 +63,7 @@
         </div>
     </div>
 
-    <nav class="navbar fixed-bottom navbar-dark bg-dark">
+    <nav class="navbar fixed-bottom navbar-dark bg-primary">
         <label style="color:#ffffff;">&copy; Copyright Loan Management System</label>
         <label style="color:#ffffff;">All Rights Reserved <?php echo date("Y") ?> </label>
     </nav>
