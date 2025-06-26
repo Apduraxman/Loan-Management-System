@@ -53,9 +53,10 @@ if ($is_admin) {
             <div class="main-header header-sticky">
                 <div class="container-fluid">
                     <div class="row align-items-center">
+                      <!-- Logo -->
                         <div class="col-xl-2 col-lg-2 col-md-1">
                             <div class="logo">
-                                <a href="<?= $is_admin ? 'admin_dashboard.php' : 'index.php' ?>"><img src="assets/img/logo/logo.png" alt=""></a>
+                                <a href="#"><img src="assets/img/logo/ips.png" alt="Logo" width="90" height="90" style="width:90px; height:90px;"></a>
                             </div>
                         </div>
                         <div class="col-xl-10 col-lg-10 col-md-10">

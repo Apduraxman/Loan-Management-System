@@ -45,13 +45,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body>
 
+
     <!-- Preloader Start -->
     <div id="preloader-active">
         <div class="preloader d-flex align-items-center justify-content-center">
             <div class="preloader-inner position-relative">
                 <div class="preloader-circle"></div>
                 <div class="preloader-img pere-text">
-                    <img src="assets/img/logo/logo.png" alt="logo">
+                    <img src="assets/img/logo/ips.png" alt="logo">
                 </div>
             </div>
         </div>
@@ -64,10 +65,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="main-header header-sticky">
                 <div class="container-fluid">
                     <div class="row align-items-center">
-                        <!-- Logo -->
+                         <!-- Logo -->
                         <div class="col-xl-2 col-lg-2 col-md-1">
                             <div class="logo">
-                                <a href="index.php"><img src="assets/img/logo/logo.png" alt="Logo"></a>
+                                <a href="#"><img src="assets/img/logo/ips.png" alt="Logo" width="90" height="90" style="width:90px; height:90px;"></a>
                             </div>
                         </div>
                         <!-- Mobile Menu -->
