@@ -594,10 +594,13 @@ $db = new db_class();
 
 
 				$("#calculate").click(function() {
-					if ($("#lplan").val() == "" || $("#amount").val() == "") {
-						alert("Please enter a Loan Plan or Amount to Calculate")
+					var lplan = $("#lplan option:selected").text();
+					var amount = $("#amount").val();
+
+					if ($("#lplan").val() == "" || amount == "") {
+						alert("Please enter a Loan Plan or Amount to Calculate");
 					} else {
-						var lplan = $("#lplan option:selected").text();
+						// Parse months, interest, penalty from lplan text
 						var months = parseFloat(lplan.split('months')[0]);
 						var splitter = lplan.split('months')[1];
 						var findinterest = splitter.split('%')[0];
@@ -605,10 +608,10 @@ $db = new db_class();
 						var findpenalty = splitter.split('%')[1];
 						var penalty = parseFloat(findpenalty.replace(/[^0-9.]/g, ""));
 
-						var amount = parseFloat($("#amount").val());
+						amount = parseFloat(amount);
 
 						var monthly = (amount + (amount * (interest / 100))) / months;
-						var penalty = monthly * (penalty / 100);
+						var penaltyAmount = monthly * (penalty / 100);
 						var totalAmount = amount + monthly;
 
 
@@ -621,7 +624,7 @@ $db = new db_class();
 							minimumFractionDigits: 2,
 							maximumFractionDigits: 2
 						}));
-						$("#pa").text("\u20B1 " + penalty.toLocaleString(undefined, {
+						$("#pa").text("\u20B1 " + penaltyAmount.toLocaleString(undefined, {
 							minimumFractionDigits: 2,
 							maximumFractionDigits: 2
 						}));
@@ -633,10 +636,13 @@ $db = new db_class();
 
 
 				$("#updateCalculate").click(function() {
-					if ($("#ulplan").val() == "" || $("#uamount").val() == "") {
+					var lplan = $("#ulplan option:selected").text();
+					var amount = $("#uamount").val();
+
+					if ($("#ulplan").val() == "" || amount == "") {
 						alert("Please enter a Loan Plan or Amount to Calculate")
 					} else {
-						var lplan = $("#ulplan option:selected").text();
+						// Parse months, interest, penalty from lplan text
 						var months = parseFloat(lplan.split('months')[0]);
 						var splitter = lplan.split('months')[1];
 						var findinterest = splitter.split('%')[0];
@@ -644,10 +650,10 @@ $db = new db_class();
 						var findpenalty = splitter.split('%')[1];
 						var penalty = parseFloat(findpenalty.replace(/[^0-9.]/g, ""));
 
-						var amount = parseFloat($("#uamount").val());
+						amount = parseFloat(amount);
 
 						var monthly = (amount + (amount * (interest / 100))) / months;
-						var penalty = monthly * (penalty / 100);
+						var penaltyAmount = monthly * (penalty / 100);
 						var totalAmount = amount + monthly;
 
 
@@ -660,7 +666,7 @@ $db = new db_class();
 							minimumFractionDigits: 2,
 							maximumFractionDigits: 2
 						}));
-						$("#upa").text("\u20B1 " + penalty.toLocaleString(undefined, {
+						$("#upa").text("\u20B1 " + penaltyAmount.toLocaleString(undefined, {
 							minimumFractionDigits: 2,
 							maximumFractionDigits: 2
 						}));
