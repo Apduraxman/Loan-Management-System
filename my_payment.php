@@ -80,19 +80,6 @@ $loans = $loan_query->get_result();
                                     </ul>
                                 </nav>
                             </div>
-                            <div class="header-right-btn f-right d-none d-lg-block">
-                                <a href="#" class="btn header-btn">
-                                    <?php
-                                        if (isset($_SESSION['admin_id'])) {
-                                            echo "Admin";
-                                        } elseif (isset($name)) {
-                                            echo "Welcome, " . htmlspecialchars($name);
-                                        } else {
-                                            echo "Login";
-                                        }
-                                    ?>
-                                </a>
-                            </div>
                         </div>
                     </div>
                     <div class="col-12">
