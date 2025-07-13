@@ -38,7 +38,7 @@ $loanPlans = $db->display_lplan();
                         <!-- Logo -->
                         <div class="col-xl-2 col-lg-2 col-md-1">
                             <div class="logo">
-                                <a href="#"><img src="assets/img/logo/ips.png" alt="Logo" width="90" height="90" style="width:90px; height:90px;"></a>
+                                <a href="index.php"><img src="assets/img/logo/ips.png" alt="Logo" width="90" height="90" style="width:90px; height:90px;"></a>
                             </div>
                         </div>
                         <div class="col-xl-10 col-lg-10 col-md-10">
@@ -46,17 +46,22 @@ $loanPlans = $db->display_lplan();
                                 <div class="main-menu f-right d-none d-lg-block">
                                     <nav>
                                         <ul id="navigation">
-                                            <li><a href="index.php">Dashboard</a></li>
-                                            <li class="active"><a href="#">Request Loan</a></li>
-                                            <li><a href="my_payment.php">My Payments</a></li>
-                                            <li><a href="view_loan_requests.php">Loan Requests</a></li>
-                                            <li><a href="customer_logout.php">Logout</a></li>
+                                            <li><a href="index.php">Home</a></li>
+                                            <li><a href="about.php">About</a></li>
+                                            <li><a href="services.html">Services</a></li>
+                                           <li><a href="blog.html">Blog</a>
+                                                <ul class="submenu">
+                                                    <li><a href="blog.html">Blog</a></li>
+                                                    <li><a href="my_payment.php">my payments</a></li>
+                                                    <li><a href="view_loan_requests.php">view Loan</a></li>
+                                                    <li><a href="apply.php">Apply Now</a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="contact.html">Contact</a></li>
                                         </ul>
                                     </nav>
                                 </div>
-                                <div class="header-right-btn f-right d-none d-lg-block">
-                                    <a href="#" class="btn header-btn">Welcome, <?= htmlspecialchars($_SESSION['customer_name']) ?></a>
-                                </div>
+                               
                             </div>
                         </div>
                         <div class="col-12">

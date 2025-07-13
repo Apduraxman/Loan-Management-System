@@ -26,7 +26,7 @@ if ($customer_id) {
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="manifest" href="site.webmanifest">
-    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/ips.ico">
 
     <!-- CSS here -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -41,6 +41,59 @@ if ($customer_id) {
     <link rel="stylesheet" href="assets/css/nice-select.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <style>
+
+    
+    .dropdown-toggle-custom {
+        background-color: #001F3F;
+        color: white;
+        font-size: 16px;
+        font-weight: 600;
+        padding: 30px 20px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        position: relative;
+    }
+
+    .dropdown-toggle-custom .plus-icon {
+        font-size: 20px;
+        margin-left: 10px;
+        color: #FFD700;
+        font-weight: bold;
+    }
+
+    .admin-dropdown {
+        display: none;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        min-width: 180px;
+        padding: 10px 0;
+        z-index: 1000;
+    }
+
+    .admin-dropdown li {
+        list-style: none;
+    }
+
+    .admin-dropdown li a {
+        display: block;
+        padding: 10px 20px;
+        font-size: 12px;
+        color: #333;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
+
+    .admin-dropdown li a:hover {
+        background-color: #f1f1f1;
+        color: #001F3F;
+    }
+
+
         .fa-bell {
             font-size: 18px !important;
             vertical-align: middle;
@@ -113,103 +166,76 @@ if ($customer_id) {
     </div>
     <!-- Preloader End -->
 
-    <!-- Navbar Start - IBS BANK Style Using Code 2 Layout -->
-    <div class="container-fluid nav-bar sticky-top px-4 py-2 py-lg-0" style="background: #212529 !important; box-shadow: 0 2px 8px rgba(0,0,0,0.10);">
-        <nav class="navbar navbar-expand-lg navbar-dark">
-            <a href="#" class="navbar-brand p-0">
-                <img src="assets/img/logo/ips.png" alt="IBS BANK" width="90" height="90">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                <span class="fa fa-bars"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <div class="navbar-nav mx-auto py-0">
-                    <a href="#" class="nav-item nav-link active">Home</a>
-                    <a href="about.html" class="nav-item nav-link">About</a>
-                    <a href="services.html" class="nav-item nav-link">Services</a>
-
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Blog</a>
-                        <div class="dropdown-menu m-0">
-                            <a href="blog.html" class="dropdown-item">Blog</a>
-                            <a href="blog_details.html" class="dropdown-item">Blog Details</a>
-                            <a href="elements.html" class="dropdown-item">Element</a>
-                            <a href="apply.html" class="dropdown-item">Apply Now</a>
-                        </div>
-                    </div>
-
-                    <a href="contact.html" class="nav-item nav-link">Contact</a>
-                    <a href="request_loan.php" class="nav-item nav-link">Request Loan</a>
-                    <a href="my_payment.php" class="nav-item nav-link">My Payments</a>
-                    <a href="view_loan_requests.php" class="nav-item nav-link">Loan Requests</a>
-
-                    <?php if ($customer_id): ?>
-                        <!-- Notification Dropdown -->
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle position-relative" id="notifDropdown" data-bs-toggle="dropdown">
-                                <i class="fas fa-bell"></i>
-                                <?php if ($unread_count > 0): ?>
-                                    <span class="badge bg-danger position-absolute top-0 start-100 translate-middle"><?= $unread_count ?></span>
-                                <?php endif; ?>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end p-2" aria-labelledby="notifDropdown" style="min-width: 300px;">
-                                <h6 class="dropdown-header">Notifications</h6>
-                                <?php if ($unread_count > 0): ?>
-                                    <?php foreach ($new_messages as $msg): ?>
-                                        <div class="dropdown-item small text-wrap">
-                                            <?= htmlspecialchars($msg['message']) ?>
-                                            <div class="text-muted small"><?= date("d M Y, H:i", strtotime($msg['created_at'])) ?></div>
-                                        </div>
-                                    <?php endforeach; ?>
+    <!-- Header Start -->
+<header>
+        <!-- Header Start -->
+        <div class="header-area header-transparent">
+                <div class="main-header  header-sticky">
+                    <div class="container-fluid">
+                        <div class="row align-items-center">
+                            <!-- Logo -->
+                            <div class="col-xl-2 col-lg-2 col-md-1">
+                                <div class="logo">
+                                    <a href="index.php"><img src="assets/img/logo/ips.png" alt="Logo" width="90" height="90" style="width:90px; height:90px;"></a>
+                                </div>
+                            </div>
+                            <div class="col-xl-10 col-lg-10 col-md-10">
+                            <div class="menu-main d-flex align-items-center justify-content-end">
+                                <!-- Main-menu -->
+                                <div class="main-menu f-right d-none d-lg-block">
+                                    <nav> 
+                                        <ul id="navigation">  
+                                            <li class="active"><a href="index.php">Home</a></li>
+                                            <li><a href="about.php">About</a></li>
+                                            <li><a href="services.html">Services</a></li>
+                                            <li><a href="blog.html">Blog</a>
+                                                <ul class="submenu">
+                                                    <li><a href="blog.html">Blog</a></li>
+                                                    <li><a href="my_payment.php">my payments</a></li>
+                                                    <li><a href="view_loan_requests.php">view Loan</a></li>
+                                                    <li><a href="apply.php">Apply Now</a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="contact.html">Contact</a></li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                                <!-- Admin Button with Dropdown -->
+                                <?php if ($customer_id): ?>
+                                    <div class="header-right-btn f-right d-none d-lg-block position-relative">
+                                        <button class="btn header-btn dropdown-toggle-custom" onclick="toggleAdminDropdown()">
+                                            <i class="fa fa-user"></i> <span class="plus-icon">+</span>
+                                        </button>
+                                        <ul id="adminDropdown" class="admin-dropdown">
+                                            <li><a href="customer_logout.php">Logout</a></li>
+                                            <li><a href="admin/admin_log.php">Admin Login</a></li>
+                                        </ul>
+                                    </div>
                                 <?php else: ?>
-                                    <div class="dropdown-item text-muted">No new notifications</div>
+                                    <div class="header-right-btn f-right d-none d-lg-block position-relative">
+                                        <button class="btn header-btn dropdown-toggle-custom" onclick="toggleAdminDropdown()">
+                                            Login <span class="plus-icon">+</span>
+                                        </button>
+                                        <ul id="adminDropdown" class="admin-dropdown">
+                                            <li><a href="admin/admin_log.php">Admin Login</a></li>
+                                            <li><a href="customer_login.php">Customer Login</a></li>
+                                        </ul>
+                                    </div>
                                 <?php endif; ?>
-                            </div>
-                        </div>
 
-                        <a href="customer_logout.php" class="nav-item nav-link">Logout</a>
-                    <?php else: ?>
-                        <a href="customer_login.php" class="nav-item nav-link">User Login</a>
-                    <?php endif; ?>
-
-                    <!-- Admin FAB Menu -->
-                    <div class="nav-item dropdown position-relative">
-                        <button onclick="toggleFabMenu()" class="btn btn-sm btn-primary nav-link d-flex align-items-center justify-content-center shadow"
-                            style="width: 36px; height: 36px; border-radius: 50%; font-size: 22px; background: linear-gradient(135deg, #007bff 60%, #0056b3 100%); border: none; transition: background 0.3s;">
-                            <span style="font-size: 22px; line-height: 1;">+</span>
-                        </button>
-                        <div id="fabMenu"
-                            style="
-                                display: none;
-                                position: absolute;
-                                top: 48px;
-                                right: 0;
-                                min-width: 180px;
-                                background: #fff;
-                                border-radius: 12px;
-                                box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-                                padding: 18px 16px 12px 16px;
-                                z-index: 999;
-                                border: 1px solid #e0e7ef;
-                                animation: fadeInFab 0.25s;
-                            ">
-                            <div class="text-center mb-2">
-                                <i class="fas fa-user-shield text-primary" style="font-size: 32px;"></i>
                             </div>
-                            <a href="admin/admin_log.php" class="btn btn-primary w-100 mb-2" style="border-radius: 8px; font-weight: 500; font-size: 16px;">
-                                <i class="fas fa-sign-in-alt me-1"></i> Admin Login
-                            </a>
+                            </div>   
+                            <!-- Mobile Menu -->
+                            <div class="col-12">
+                                <div class="mobile_menu d-block d-lg-none"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- Optional Right Side Button -->
-                <!-- <a href="#" class="btn btn-primary rounded-pill py-2 px-4 flex-shrink-0">+880.762.009.00</a> -->
-            </div>
-        </nav>
-    </div>
-    <!-- Navbar End -->
+        </div>
+        <!-- Header End -->
+    </header>
+<!-- Header End -->
 
     <script>
         function toggleFabMenu() {
@@ -235,7 +261,7 @@ if ($customer_id) {
                             <p data-animation="fadeInLeft" data-delay=".2s">Achieve your financial goal</p>
                             <h1 data-animation="fadeInLeft" data-delay=".5s">Small Business Loans For Daily Expenses.</h1>
                             <!-- Hero Btn -->
-                            <a href="request_loan.php" class="btn hero-btn" data-animation="fadeInLeft" data-delay=".8s">Apply for Loan</a>
+                            <a href="apply.php" class="btn hero-btn" data-animation="fadeInLeft" data-delay=".8s">Apply for Loan</a>
                         </div>
                         <div class="hero__img">
                             <img src="assets/img/hero/hero_img.jpg" alt="">
@@ -249,7 +275,7 @@ if ($customer_id) {
                             <p data-animation="fadeInLeft" data-delay=".2s">Achieve your financial goal</p>
                             <h1 data-animation="fadeInLeft" data-delay=".5s">Small Business Loans For Daily Expenses.</h1>
                             <!-- Hero Btn -->
-                            <a href="request_loan.php" class="btn hero-btn" data-animation="fadeInLeft" data-delay=".8s">Apply for Loan</a>
+                            <a href="apply.php" class="btn hero-btn" data-animation="fadeInLeft" data-delay=".8s">Apply for Loan</a>
                         </div>
                         <div class="hero__img">
                             <img src="assets/img/hero/hero_img2.jpg" alt="">
@@ -314,7 +340,7 @@ if ($customer_id) {
                             </div>
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, oeiusmod tempor incididunt ut labore et dolore magna aliqua. Ut eniminixm, quis nostrud exercitation ullamco laboris nisi ut aliquip exeaoauat. Duis aute irure dolor in reprehe.</p>
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, oeiusmod tempor incididunt ut labore et dolore magna aliq.</p>
-                            <a href="request_loan.php" class="btn">Apply for Loan</a>
+                            <a href="apply.php" class="btn">Apply for Loan</a>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-12">
@@ -481,7 +507,7 @@ if ($customer_id) {
                                 <input type="text" placeholder="Return Amount">
                             </div>
                             <div class="search-form">
-                                <a href="request_loan.php">Apply for Loan</a>
+                                <a href="apply.php">Apply for Loan</a>
                             </div>
                         </form>
                     </div>
@@ -544,6 +570,9 @@ if ($customer_id) {
                                 <div class="team-social">
                                     <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
                                     <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fas fa-globe"></i></a></li>
+                                </div>
+                            </div>
                                     <li><a href="#"><i class="fas fa-globe"></i></a></li>
                                 </div>
                             </div>
@@ -766,6 +795,20 @@ if ($customer_id) {
         <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
     </div>
     <!-- JS here -->
+     <script>
+    function toggleAdminDropdown() {
+        const dropdown = document.getElementById("adminDropdown");
+        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+    }
+
+    // Optional: Close dropdown when clicking outside
+    window.onclick = function(event) {
+        if (!event.target.closest('.header-right-btn')) {
+            document.getElementById("adminDropdown").style.display = "none";
+        }
+    }
+</script>
+
     <script src="assets/js/vendor/modernizr-3.5.0.min.js"></script>
     <script src="assets/js/vendor/jquery-1.12.4.min.js"></script>
     <script src="assets/js/popper.min.js"></script>
