@@ -8,7 +8,8 @@ $customer_id = $_SESSION['customer_id'] ?? null;
 
 if ($is_admin) {
     $requests = $db->conn->query("
-        SELECT lr.*, lt.ltype_name, lp.lplan_month, lp.lplan_interest, lp.lplan_penalty, c.name as customer_name
+        SELECT lr.*, lt.ltype_name, lp.lplan_month, lp.lplan_interest, lp.lplan_penalty,
+        CONCAT(c.firstname, ' ', c.middlename, ' ', c.lastname) as customer_name
         FROM loan_requests lr
         JOIN loan_type lt ON lr.loan_type_id = lt.ltype_id
         JOIN loan_plan lp ON lr.loan_plan_id = lp.lplan_id
@@ -17,11 +18,13 @@ if ($is_admin) {
     ");
 } elseif ($customer_id) {
     $requests = $db->conn->query("
-        SELECT lr.*, lt.ltype_name, lp.lplan_month, lp.lplan_interest, lp.lplan_penalty, c.name as customer_name
+        SELECT lr.*, lt.ltype_name, lp.lplan_month, lp.lplan_interest, lp.lplan_penalty,
+        CONCAT(c.firstname, ' ', c.middlename, ' ', c.lastname) as customer_name
         FROM loan_requests lr
         JOIN loan_type lt ON lr.loan_type_id = lt.ltype_id
         JOIN loan_plan lp ON lr.loan_plan = lp.lplan_id
         JOIN customer c ON lr.customer_id = c.id
+        WHERE lr.customer_id = $customer_id
         ORDER BY lr.date_requested DESC
 ");
 } else {
@@ -53,7 +56,7 @@ if ($is_admin) {
             <div class="main-header header-sticky">
                 <div class="container-fluid">
                     <div class="row align-items-center">
-                      <!-- Logo -->
+                        <!-- Logo -->
                         <div class="col-xl-2 col-lg-2 col-md-1">
                             <div class="logo">
                                 <a href="#"><img src="assets/img/logo/ips.png" alt="Logo" width="90" height="90" style="width:90px; height:90px;"></a>

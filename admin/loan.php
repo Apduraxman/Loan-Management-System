@@ -118,7 +118,16 @@ $db = new db_class();
 											<tr>
 												<td><?php echo $i++; ?></td>
 												<td>
-													<p><small>Name: <strong><?php echo $fetch['lastname'] . ", " . $fetch['firstname'] . " " . substr($fetch['middlename'], 0, 1) . "." ?></strong></small></p>
+													<p><small>Name: <strong>
+																<?php
+																// Show as: Firstname Middlename Lastname
+																echo $fetch['firstname'];
+																if (!empty($fetch['middlename'])) {
+																	echo " " . $fetch['middlename'];
+																}
+																echo " " . $fetch['lastname'];
+																?>
+															</strong></small></p>
 													<p><small>Contact: <strong><?php echo $fetch['contact_no'] ?></strong></small></p>
 													<p><small>Address: <strong><?php echo $fetch['address'] ?></strong></small></p>
 												</td>
@@ -225,7 +234,15 @@ $db = new db_class();
 																			$tbl_borrower = $db->display_borrower();
 																			while ($row = $tbl_borrower->fetch_array()) {
 																			?>
-																				<option value="<?php echo $row['borrower_id'] ?>" <?php echo ($fetch['borrower_id'] == $row['borrower_id']) ? 'selected' : '' ?>><?php echo $row['lastname'] . ", " . $row['firstname'] . " " . substr($row['middlename'], 0, 1) ?>.</option>
+																				<option value="<?php echo $row['borrower_id'] ?>" <?php echo ($fetch['borrower_id'] == $row['borrower_id']) ? 'selected' : '' ?>>
+																					<?php
+																					echo $row['firstname'];
+																					if (!empty($row['middlename'])) {
+																						echo " " . $row['middlename'];
+																					}
+																					echo " " . $row['lastname'];
+																					?>
+																				</option>
 																			<?php
 																			}
 																			?>
@@ -368,7 +385,15 @@ $db = new db_class();
 																</div>
 																<div class="col-md-7 col-xl-7">
 																	<p>Name:</p>
-																	<p><strong><?php echo $fetch['firstname'] . " " . substr($fetch['middlename'], 0, 1) . ". " . $fetch['lastname'] ?></strong></p>
+																	<p><strong>
+																			<?php
+																			echo $fetch['firstname'];
+																			if (!empty($fetch['middlename'])) {
+																				echo " " . $fetch['middlename'];
+																			}
+																			echo " " . $fetch['lastname'];
+																			?>
+																		</strong></p>
 																</div>
 															</div>
 															<hr />
@@ -464,7 +489,15 @@ $db = new db_class();
 										$tbl_borrower = $db->display_borrower();
 										while ($fetch = $tbl_borrower->fetch_array()) {
 										?>
-											<option value="<?php echo $fetch['borrower_id'] ?>"><?php echo $fetch['lastname'] . ", " . $fetch['firstname'] . " " . substr($fetch['middlename'], 0, 1) ?>.</option>
+											<option value="<?php echo $fetch['borrower_id'] ?>">
+												<?php
+												echo $fetch['firstname'];
+												if (!empty($fetch['middlename'])) {
+													echo " " . $fetch['middlename'];
+												}
+												echo " " . $fetch['lastname'];
+												?>
+											</option>
 										<?php
 										}
 										?>

@@ -3,14 +3,17 @@ require_once 'admin/class.php';
 $db = new db_class();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name = $_POST['name'];
+    $firstname = $_POST['firstname'];
+    $middlename = $_POST['middlename'];
+    $lastname = $_POST['lastname'];
     $email = $_POST['email'];
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
     $phone = $_POST['phone'];
     $address = $_POST['address'];
+    $tax_id = $_POST['tax_id'];
 
     try {
-        $db->add_customer($name, $email, $password, $phone, $address);
+        $db->add_customer($firstname, $middlename, $lastname, $email, $password, $phone, $address, $tax_id);
         echo "<script>alert('Registration successful. Please login.'); window.location='customer_login.php';</script>";
     } catch (Exception $e) {
         echo "<script>alert('Error: Email might already be registered.');</script>";
@@ -25,7 +28,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="utf-8">
     <title>Customer Registration</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <!-- Loan Master CSS -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
@@ -50,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <!-- Logo -->
                         <div class="col-xl-2 col-lg-2 col-md-1">
                             <div class="logo">
-                                <a href="#"><img src="assets/img/logo/ips.png" alt="Logo" width="90" height="90" style="width:90px; height:90px;"></a>
+                                <a href="#"><img src="assets/img/logo/ips.png" alt="Logo" width="50" height="50" style="width:90px; height:90px;"></a>
                             </div>
                         </div>
                         <div class="col-12">
@@ -87,8 +89,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         <form method="POST" class="form-contact contact_form">
                             <div class="form-group">
-                                <label>Name</label>
-                                <input type="text" name="name" class="form-control" required placeholder="Enter your name">
+                                <label>First Name</label>
+                                <input type="text" name="firstname" class="form-control" required placeholder="Enter your first name">
+                            </div>
+                            <div class="form-group">
+                                <label>Middle Name</label>
+                                <input type="text" name="middlename" class="form-control" placeholder="Enter your middle name">
+                            </div>
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                <input type="text" name="lastname" class="form-control" required placeholder="Enter your last name">
                             </div>
                             <div class="form-group">
                                 <label>Email address</label>
@@ -105,6 +115,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <div class="form-group">
                                 <label>Address</label>
                                 <textarea name="address" class="form-control" placeholder="Enter your address"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>National ID</label>
+                                <input type="text" name="tax_id" class="form-control" required placeholder="Enter your National ID">
                             </div>
                             <div class="form-group mt-3">
                                 <button type="submit" class="btn btn-primary w-100">Register</button>

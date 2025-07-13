@@ -428,10 +428,10 @@ class db_class extends db_connect
 
 
 	/* Customer function */
-	public function add_customer($name, $email, $password, $phone, $address)
+	public function add_customer($firstname, $middlename, $lastname, $email, $password, $phone, $address, $tax_id)
 	{
-		$query = $this->conn->prepare("INSERT INTO `customer` (`name`, `email`, `password`, `phone`, `address`) VALUES (?, ?, ?, ?, ?)") or die($this->conn->error);
-		$query->bind_param("sssss", $name, $email, $password, $phone, $address);
+		$query = $this->conn->prepare("INSERT INTO `customer` (`firstname`, `middlename`, `lastname`, `email`, `password`, `phone`, `address` , `tax_id`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)") or die($this->conn->error);
+		$query->bind_param("ssssssss", $firstname, $middlename, $lastname, $email, $password, $phone, $address, $tax_id);
 
 		if ($query->execute()) {
 			$query->close();
@@ -586,4 +586,24 @@ class db_class extends db_connect
 	// 	return $result;
 	// }
 
+	public function get_customer_by_id($id)
+	{
+		$stmt = $this->conn->prepare("SELECT * FROM customer WHERE id = ?");
+		$stmt->bind_param("i", $id);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		$customer = $result->fetch_assoc();
+		$stmt->close();
+		return $customer;
+	}
+
+	public function get_loan_requests_by_customer($customer_id)
+	{
+		$stmt = $this->conn->prepare("SELECT * FROM loan_requests WHERE customer_id = ?");
+		$stmt->bind_param("i", $customer_id);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		$stmt->close();
+		return $result;
+	}
 }
