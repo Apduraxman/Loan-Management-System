@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>About - IPS Bank Loan Management System</title>
@@ -14,14 +15,16 @@
             margin: 0;
             padding: 0;
         }
+
         .about-section {
             padding: 60px 20px;
             background-color: #ffffff;
             max-width: 900px;
             margin: 60px auto 40px auto;
-            box-shadow: 0 0 16px rgba(0,0,0,0.07);
+            box-shadow: 0 0 16px rgba(0, 0, 0, 0.07);
             border-radius: 14px;
         }
+
         .about-section h2 {
             font-size: 32px;
             color: #001F3F;
@@ -29,19 +32,24 @@
             font-weight: 700;
             letter-spacing: 1px;
         }
-        .about-section p, .about-section ul {
+
+        .about-section p,
+        .about-section ul {
             font-size: 17px;
             line-height: 1.8;
             color: #333;
             margin-bottom: 18px;
         }
+
         .about-section ul {
             padding-left: 22px;
         }
+
         .about-section ul li {
             margin-bottom: 8px;
             list-style: disc;
         }
+
         .about-section .btn {
             background: linear-gradient(90deg, #007bff 60%, #0056b3 100%);
             color: #fff;
@@ -53,12 +61,14 @@
             margin-top: 18px;
             transition: background 0.3s;
         }
+
         .about-section .btn:hover {
             background: linear-gradient(90deg, #0056b3 60%, #007bff 100%);
             color: #fff;
         }
     </style>
 </head>
+
 <body>
     <!-- Preloader Start -->
     <div id="preloader-active" style="display:none;">
@@ -93,7 +103,7 @@
                                             <li><a href="index.php">Home</a></li>
                                             <li class="active"><a href="about.php">About</a></li>
                                             <li><a href="services.html">Services</a></li>
-                                             <li><a href="">Blog</a>
+                                            <li><a href="">Blog</a>
                                                 <ul class="submenu">
                                                     <li><a href="blog.html">Blog</a></li>
                                                     <li><a href="my_payment.php">my payments</a></li>
@@ -108,13 +118,13 @@
                                 <div class="header-right-btn f-right d-none d-lg-block">
                                     <a href="#" class="btn header-btn">
                                         <?php
-                                            if (isset($_SESSION['admin_id'])) {
-                                                echo "Admin";
-                                            } elseif (isset($_SESSION['customer_name'])) {
-                                                echo "Welcome, " . htmlspecialchars($_SESSION['customer_name']);
-                                            } else {
-                                                echo "Login";
-                                            }
+                                        if (isset($_SESSION['admin_id'])) {
+                                            echo "Admin";
+                                        } elseif (isset($_SESSION['customer_name'])) {
+                                            echo "Welcome, " . htmlspecialchars($_SESSION['customer_name']);
+                                        } else {
+                                            echo "Login";
+                                        }
                                         ?>
                                     </a>
                                 </div>
@@ -182,7 +192,7 @@
                             <ul class="footer-links">
                                 <li><a href="index.php">Home</a></li>
                                 <li><a href="about.php">About</a></li>
-                                <li><a href="services.html">Services</a></li>
+                                <li><a href="services.php">Services</a></li>
                                 <li><a href="blog.html">Blog</a></li>
                                 <li><a href="contact.html">Contact</a></li>
                             </ul>
@@ -253,4 +263,5 @@
     <script src="assets/js/jquery.magnific-popup.min.js"></script>
     <script src="assets/js/main.js"></script>
 </body>
+
 </html>
