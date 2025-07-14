@@ -88,6 +88,7 @@ $db = new db_class();
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card">
                                 <div class="card-body">
+                                    <!-- Add min/max fields to Loan Type form -->
                                     <form method="POST" action="save_ltype.php">
                                         <div class="form-group">
                                             <label>Loan Name</label>
@@ -96,6 +97,26 @@ $db = new db_class();
                                         <div class="form-group">
                                             <label>Loan Description</label>
                                             <textarea style="resize:none;" class="form-control" name="ltype_desc" required="required"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Minimum Amount</label>
+                                            <input type="number" class="form-control" name="min_amount" required="required" min="0" value="400" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Maximum Amount</label>
+                                            <input type="number" class="form-control" name="max_amount" required="required" min="0" value="8000" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Loan Plan</label>
+                                            <select name="loan_plan_id" class="form-control" required="required">
+                                                <option value="">Select Loan Plan</option>
+                                                <?php
+                                                $tbl_lplan = $db->display_lplan();
+                                                while ($row = $tbl_lplan->fetch_array()) {
+                                                    echo '<option value="' . $row['lplan_id'] . '">' . $row['lplan_month'] . ' months [' . $row['lplan_interest'] . '%, ' . $row['lplan_penalty'] . '%]</option>';
+                                                }
+                                                ?>
+                                            </select>
                                         </div>
                                         <button type="submit" class="btn btn-primary btn-block" name="save">Save</button>
                                     </form>
@@ -111,6 +132,9 @@ $db = new db_class();
                                                 <tr>
                                                     <th>Loan Name</th>
                                                     <th>Loan Description</th>
+                                                    <th>Minimum Amount</th>
+                                                    <th>Maximum Amount</th>
+                                                    <th>Loan Plan</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
@@ -122,6 +146,23 @@ $db = new db_class();
                                                     <tr>
                                                         <td><?php echo $fetch['ltype_name'] ?></td>
                                                         <td><?php echo $fetch['ltype_desc'] ?></td>
+                                                        <td><?php echo $fetch['min_amount'] ?></td>
+                                                        <td><?php echo $fetch['max_amount'] ?></td>
+                                                        <td>
+                                                            <?php
+                                                            // Fix: Show loan plan info using loan_plan_id
+                                                            if (!empty($fetch['loan_plan_id'])) {
+                                                                $plan = $db->conn->query("SELECT lplan_month, lplan_interest, lplan_penalty FROM loan_plan WHERE lplan_id = " . intval($fetch['loan_plan_id']))->fetch_assoc();
+                                                                if ($plan) {
+                                                                    echo $plan['lplan_month'] . ' months [' . $plan['lplan_interest'] . '%, ' . $plan['lplan_penalty'] . '%]';
+                                                                } else {
+                                                                    echo 'N/A';
+                                                                }
+                                                            } else {
+                                                                echo 'N/A';
+                                                            }
+                                                            ?>
+                                                        </td>
                                                         <td>
                                                             <div class="dropdown">
                                                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -157,7 +198,6 @@ $db = new db_class();
                                                     </div>
 
                                                     <!-- Update Loan Type Modal -->
-
                                                     <div class="modal fade" id="updateltype<?php echo $fetch['ltype_id'] ?>" tabindex="-1" aria-hidden="true">
                                                         <div class="modal-dialog">
                                                             <form method="POST" action="update_ltype.php">
@@ -178,10 +218,31 @@ $db = new db_class();
                                                                             <label>Loan Description</label>
                                                                             <textarea style="resize:none;" class="form-control" name="ltype_desc" required="required"><?php echo $fetch['ltype_desc'] ?></textarea>
                                                                         </div>
+                                                                        <div class="form-group">
+                                                                            <label>Minimum Amount</label>
+                                                                            <input type="number" class="form-control" name="min_amount" required="required" min="0" value="<?php echo $fetch['min_amount'] ?>" />
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label>Maximum Amount</label>
+                                                                            <input type="number" class="form-control" name="max_amount" required="required" min="0" value="<?php echo $fetch['max_amount'] ?>" />
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label>Loan Plan</label>
+                                                                            <select name="loan_plan_id" class="form-control" required="required">
+                                                                                <option value="">Select Loan Plan</option>
+                                                                                <?php
+                                                                                $tbl_lplan = $db->display_lplan();
+                                                                                while ($row = $tbl_lplan->fetch_array()) {
+                                                                                    $selected = ($fetch['loan_plan_id'] == $row['lplan_id']) ? 'selected' : '';
+                                                                                    echo '<option value="' . $row['lplan_id'] . '" ' . $selected . '>' . $row['lplan_month'] . ' months [' . $row['lplan_interest'] . '%, ' . $row['lplan_penalty'] . '%]</option>';
+                                                                                }
+                                                                                ?>
+                                                                            </select>
+                                                                        </div>
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                                                                        <button type="submit" name="update" class="btn btn-warning">Update</a>
+                                                                        <button type="submit" name="update" class="btn btn-warning">Update</button>
                                                                     </div>
                                                                 </div>
                                                             </form>

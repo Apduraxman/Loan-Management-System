@@ -712,7 +712,37 @@ $db = new db_class();
 				$('#dataTable').DataTable();
 			});
 		</script>
+		<script>
+			$(document).ready(function() {
+				// Loan type change: auto select loan plan and set min/max amount
+				$('select[name="ltype"]').change(function() {
+					var ltypeId = $(this).val();
+					if (!ltypeId) return;
 
+					// Ajax to get loan type info (loan_plan_id, min_amount, max_amount)
+					$.ajax({
+						url: 'get_ltype_info.php',
+						type: 'POST',
+						data: { ltype_id: ltypeId },
+						dataType: 'json',
+						success: function(data) {
+							// Set min/max for amount
+							$('input[name="loan_amount"]').attr('min', data.min_amount);
+							$('input[name="loan_amount"]').attr('max', data.max_amount);
+							$('input[name="loan_amount"]').val(data.min_amount);
+							$('input[name="loan_amount"]').next('small').remove();
+							$('input[name="loan_amount"]').after('<small class="form-text text-muted">Min: ' + data.min_amount + ', Max: ' + data.max_amount + '</small>');
+
+							// Auto select loan plan
+							$('select[name="lplan"]').val(data.loan_plan_id);
+						}
+					});
+				});
+
+				// Trigger change on page load if needed
+				$('select[name="ltype"]').trigger('change');
+			});
+		</script>
 
 </body>
 

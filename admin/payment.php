@@ -91,6 +91,26 @@ $db = new db_class();
                     <div class="row">
                         <button class="ml-3 mb-3 btn btn-lg btn-primary" href="#" data-toggle="modal" data-target="#addModal"><span class="fa fa-plus"></span> New Payment</button>
                     </div>
+
+                    <!-- Add Payment Report Filter & Print Button -->
+                    <div class="row mb-3">
+                        <form method="get" class="form-inline">
+                            <label for="payee_id" class="mr-2">Filter by Payee:</label>
+                            <select name="payee_id" id="payee_id" class="form-control mr-2" style="width:auto;">
+                                <option value="">All</option>
+                                <?php
+                                $payees = $db->conn->query("SELECT DISTINCT payee FROM payment");
+                                while ($row = $payees->fetch_assoc()) {
+                                    $selected = (isset($_GET['payee_id']) && $_GET['payee_id'] == $row['payee']) ? 'selected' : '';
+                                    echo '<option value="' . htmlspecialchars($row['payee']) . '" ' . $selected . '>' . htmlspecialchars($row['payee']) . '</option>';
+                                }
+                                ?>
+                            </select>
+                            <button type="submit" class="btn btn-info mr-2">Filter</button>
+                            <button type="button" class="btn btn-primary" onclick="window.print();"><i class="fas fa-print"></i> Print</button>
+                        </form>
+                    </div>
+
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-body">
@@ -103,12 +123,17 @@ $db = new db_class();
                                             <th>Payee</th>
                                             <th>Amount</th>
                                             <th>Penalty</th>
-                                            <th>Payment Date</th> <!-- Add this line -->
+                                            <th>Payment Date</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $tbl_payment = $db->conn->query("SELECT * FROM `payment` INNER JOIN `loan` ON payment.loan_id=loan.loan_id");
+                                        $where = "";
+                                        if (isset($_GET['payee_id']) && $_GET['payee_id'] != "") {
+                                            $payee = $db->conn->real_escape_string($_GET['payee_id']);
+                                            $where = " WHERE payment.payee = '$payee' ";
+                                        }
+                                        $tbl_payment = $db->conn->query("SELECT * FROM payment INNER JOIN loan ON payment.loan_id=loan.loan_id $where");
                                         $i = 1;
                                         while ($fetch = $tbl_payment->fetch_array()) {
                                         ?>
@@ -118,7 +143,7 @@ $db = new db_class();
                                                 <td><?php echo $fetch['payee'] ?></td>
                                                 <td><?php echo "&#36; " . number_format($fetch['pay_amount'], 2) ?></td>
                                                 <td><?php echo "&#36; " . number_format($fetch['penalty'], 2) ?></td>
-                                                <td><?php echo htmlspecialchars($fetch['payment_date']); ?></td> <!-- Add this line -->
+                                                <td><?php echo htmlspecialchars($fetch['payment_date']); ?></td>
                                             </tr>
 
                                         <?php

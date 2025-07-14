@@ -7,6 +7,9 @@ $db = new db_class();
 
 $type = isset($_GET['type']) ? $_GET['type'] : 'borrower';
 $title = ucfirst($type) . ' Report';
+
+// Get selected ID from GET
+$selected_id = isset($_GET['selected_id']) ? $_GET['selected_id'] : '';
 ?>
 
 
@@ -45,6 +48,31 @@ $title = ucfirst($type) . ' Report';
                         <h1 class="h3 mb-0 text-gray-800"><?php echo $title; ?></h1>
                         <button onclick="window.print()" class="btn btn-primary"><i class="fas fa-print"></i> Print</button>
                     </div>
+                    <!-- Filter Form -->
+                    <form method="get" class="mb-3">
+                        <input type="hidden" name="type" value="<?php echo htmlspecialchars($type); ?>">
+                        <label for="selected_id">Select <?php echo $type; ?> by Number:</label>
+                        <select name="selected_id" id="selected_id" class="form-control" style="width:auto;display:inline-block;">
+                            <option value="">All</option>
+                            <?php
+                            if ($type == 'borrower') {
+                                $tbl_borrower = $db->display_borrower();
+                                $i = 1;
+                                while ($row = $tbl_borrower->fetch_array()) {
+                                    echo '<option value="' . $row['borrower_id'] . '" ' . ($selected_id == $row['borrower_id'] ? 'selected' : '') . '>' . $i++ . ' - ' . htmlspecialchars($row['firstname'] . ' ' . $row['lastname']) . '</option>';
+                                }
+                            } elseif ($type == 'loan') {
+                                $tbl_loan = $db->display_loan();
+                                $i = 1;
+                                while ($row = $tbl_loan->fetch_array()) {
+                                    echo '<option value="' . $row['loan_id'] . '" ' . ($selected_id == $row['loan_id'] ? 'selected' : '') . '>' . $i++ . ' - ' . htmlspecialchars($row['ref_no']) . '</option>';
+                                }
+                            }
+                            // Add more types if needed
+                            ?>
+                        </select>
+                        <button type="submit" class="btn btn-info">Filter</button>
+                    </form>
                     <div class="card shadow mb-4">
                         <div class="card-body">
                             <div class="table-responsive">
@@ -65,6 +93,7 @@ $title = ucfirst($type) . ' Report';
                                             $tbl_borrower = $db->display_borrower();
                                             $i = 1;
                                             while ($row = $tbl_borrower->fetch_array()) {
+                                                if ($selected_id && $row['borrower_id'] != $selected_id) continue;
                                                 echo '<tr>';
                                                 echo '<td>' . $i++ . '</td>';
                                                 echo '<td>' . htmlspecialchars($row['firstname']) . '</td>';
@@ -93,6 +122,7 @@ $title = ucfirst($type) . ' Report';
                                             $tbl_loan = $db->display_loan();
                                             $i = 1;
                                             while ($row = $tbl_loan->fetch_array()) {
+                                                if ($selected_id && $row['loan_id'] != $selected_id) continue;
                                                 echo '<tr>';
                                                 echo '<td>' . $i++ . '</td>';
                                                 echo '<td>' . htmlspecialchars($row['ref_no']) . '</td>';

@@ -157,6 +157,36 @@ $loanPlans = $db->display_lplan();
     <script src="assets/js/vendor/jquery-1.12.4.min.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/js/main.js"></script>
+    <script>
+$(document).ready(function() {
+    // Loan Type change: auto select loan plan and set min/max for amount
+    $('select[name="loan_type"]').change(function() {
+        var ltypeId = $(this).val();
+        if (!ltypeId) return;
+
+        $.ajax({
+            url: 'admin/get_ltype_info.php',
+            type: 'POST',
+            data: { ltype_id: ltypeId },
+            dataType: 'json',
+            success: function(data) {
+                // Set min/max for amount
+                $('input[name="amount"]').attr('min', data.min_amount);
+                $('input[name="amount"]').attr('max', data.max_amount);
+                $('input[name="amount"]').val(data.min_amount);
+                $('input[name="amount"]').next('small').remove();
+                $('input[name="amount"]').after('<small class="form-text text-muted">Min: ' + data.min_amount + ', Max: ' + data.max_amount + '</small>');
+
+                // Auto select loan plan
+                $('select[name="loan_plan"]').val(data.loan_plan_id);
+            }
+        });
+    });
+
+    // Trigger change on page load if needed
+    $('select[name="loan_type"]').trigger('change');
+});
+</script>
 
 </body>
 

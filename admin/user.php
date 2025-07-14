@@ -76,11 +76,23 @@ $db = new db_class();
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
+                    <?php
+                    $is_admin = false;
+                    $user_id = $_SESSION['user_id'];
+                    $user_info = $db->conn->query("SELECT role FROM user WHERE user_id = $user_id")->fetch_assoc();
+                    if ($user_info && $user_info['role'] === 'admin') {
+                        $is_admin = true;
+                    }
+                    ?>
+
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Users</h1>
                     </div>
-                    <button class="mb-2 btn btn-lg btn-success" href="#" data-toggle="modal" data-target="#addModal"><span class="fa fa-plus"></span> Add User</button>
+                    <?php if ($is_admin): ?>
+                        <button class="mb-2 btn btn-lg btn-success" href="#" data-toggle="modal" data-target="#addModal"><span class="fa fa-plus"></span> Add User</button>
+                    <?php endif; ?>
+
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-body">
@@ -91,45 +103,37 @@ $db = new db_class();
                                             <th>Username</th>
                                             <th>Password</th>
                                             <th>Name</th>
-                                            <th>Action</th>
+                                            <?php if ($is_admin): ?><th>Action</th><?php endif; ?>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
                                         $tbl_user = $db->display_user();
-
                                         while ($fetch = $tbl_user->fetch_array()) {
                                         ?>
-
                                             <tr>
                                                 <td><?php echo $fetch['username'] ?></td>
                                                 <td><?php echo $db->hide_pass($fetch['password']) ?></td>
                                                 <td><?php echo $fetch['firstname'] . " " . $fetch['lastname'] ?></td>
+                                                <?php if ($is_admin): ?>
                                                 <td>
+                                                    <!-- Action buttons (Edit/Delete) -->
                                                     <div class="dropdown">
                                                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                             Action
                                                         </button>
                                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                             <a class="dropdown-item bg-warning text-white" href="#" data-toggle="modal" data-target="#updateModal<?php echo $fetch['user_id'] ?>"><i class="fa fa-edit fa-1x"></i> Edit</a>
-                                                            <?php
-                                                            if ($fetch['user_id'] == $_SESSION['user_id']) {
-                                                            ?>
+                                                            <?php if ($fetch['user_id'] == $_SESSION['user_id']) { ?>
                                                                 <a class="dropdown-item bg-danger text-white" href="#" disabled="disabled"><i class="fa fa-exclamation fa-1x"></i> Cannot Delete</a>
-                                                            <?php
-                                                            } else {
-                                                            ?>
+                                                            <?php } else { ?>
                                                                 <a class="dropdown-item bg-danger text-white" href="#" data-toggle="modal" data-target="#deleteModal<?php echo $fetch['user_id'] ?>"><i class="fa fa-trash fa-1x"></i> Delete</a>
-                                                            <?php
-                                                            }
-                                                            ?>
+                                                            <?php } ?>
                                                         </div>
                                                     </div>
-
-
                                                 </td>
+                                                <?php endif; ?>
                                             </tr>
-
 
                                             <!-- Update User Modal -->
                                             <div class="modal fade" id="updateModal<?php echo $fetch['user_id'] ?>" tabindex="-1" aria-hidden="true">

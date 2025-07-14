@@ -98,10 +98,10 @@ class db_class extends db_connect
 
 	/* Loan Type Function */
 
-	public function save_ltype($ltype_name, $ltype_desc)
+	public function save_ltype($ltype_name, $ltype_desc, $min_amount, $max_amount, $loan_plan_id)
 	{
-		$query = $this->conn->prepare("INSERT INTO `loan_type` (`ltype_name`, `ltype_desc`) VALUES(?, ?)") or die($this->conn->error);
-		$query->bind_param("ss", $ltype_name, $ltype_desc);
+		$query = $this->conn->prepare("INSERT INTO `loan_type` (`ltype_name`, `ltype_desc`, `min_amount`, `max_amount`, `loan_plan_id`) VALUES (?, ?, ?, ?, ?)") or die($this->conn->error);
+		$query->bind_param("ssdii", $ltype_name, $ltype_desc, $min_amount, $max_amount, $loan_plan_id);
 
 		if ($query->execute()) {
 			$query->close();
@@ -144,10 +144,10 @@ class db_class extends db_connect
 
 	/* Loan Plan Function */
 
-	public function save_lplan($lplan_month, $lplan_interest, $lplan_penalty)
+	public function save_lplan($lplan_month, $lplan_interest, $lplan_penalty, $ltype_id, $min_amount, $max_amount)
 	{
-		$query = $this->conn->prepare("INSERT INTO `loan_plan` (`lplan_month`, `lplan_interest`, `lplan_penalty`) VALUES(?, ?, ?)") or die($this->conn->error);
-		$query->bind_param("sss", $lplan_month, $lplan_interest, $lplan_penalty);
+		$query = $this->conn->prepare("INSERT INTO `loan_plan` (`lplan_month`, `lplan_interest`, `lplan_penalty`, `ltype_id`, `min_amount`, `max_amount`) VALUES(?, ?, ?, ?, ?, ?)") or die($this->conn->error);
+		$query->bind_param("iididd", $lplan_month, $lplan_interest, $lplan_penalty, $ltype_id, $min_amount, $max_amount);
 
 		if ($query->execute()) {
 			$query->close();

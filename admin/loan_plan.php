@@ -111,6 +111,26 @@ $db = new db_class();
 												</div>
 											</div>
 										</div>
+										<div class="form-group">
+											<label>Loan Type</label>
+											<select name="ltype_id" class="form-control" required>
+												<option value="">Select Loan Type</option>
+												<?php
+												$tbl_ltype = $db->display_ltype();
+												while ($row = $tbl_ltype->fetch_array()) {
+													echo '<option value="' . $row['ltype_id'] . '">' . htmlspecialchars($row['ltype_name']) . '</option>';
+												}
+												?>
+											</select>
+										</div>
+										<div class="form-group">
+											<label>Minimum Amount</label>
+											<input type="number" class="form-control" name="min_amount" required min="0" value="400" />
+										</div>
+										<div class="form-group">
+											<label>Maximum Amount</label>
+											<input type="number" class="form-control" name="max_amount" required min="0" value="8000" />
+										</div>
 										<button type="submit" class="btn btn-primary btn-block" name="save">Save</button>
 									</form>
 								</div>
@@ -207,6 +227,27 @@ $db = new db_class();
 																					<span class="input-group-text">%</span>
 																				</div>
 																			</div>
+																		</div>
+																		<div class="form-group">
+																			<label>Loan Type</label>
+																			<select name="ltype_id" class="form-control" required>
+																				<option value="">Select Loan Type</option>
+																				<?php
+																				$tbl_ltype = $db->display_ltype();
+																				while ($row = $tbl_ltype->fetch_array()) {
+																					$selected = ($row['ltype_id'] == $fetch['ltype_id']) ? 'selected' : '';
+																					echo '<option value="' . $row['ltype_id'] . '" ' . $selected . '>' . htmlspecialchars($row['ltype_name']) . '</option>';
+																				}
+																				?>
+																			</select>
+																		</div>
+																		<div class="form-group">
+																			<label>Minimum Amount</label>
+																			<input type="number" class="form-control" name="min_amount" required min="0" value="<?php echo $fetch['min_amount'] ?>" />
+																		</div>
+																		<div class="form-group">
+																			<label>Maximum Amount</label>
+																			<input type="number" class="form-control" name="max_amount" required min="0" value="<?php echo $fetch['max_amount'] ?>" />
 																		</div>
 																	</div>
 																	<div class="modal-footer">
