@@ -51,11 +51,6 @@
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="user.php">
-            <i class="fas fa-fw fa-user"></i>
-            <span>Users</span></a>
-    </li>
-    <li class="nav-item">
         <a class="nav-link" href="report.php">
             <i class="fas fa-fw fa-file-alt"></i>
             <span>Reports</span>
@@ -71,6 +66,12 @@
         <a class="nav-link" href="admin_send_message.php">
             <i class="fas fa-fw fa-bell"></i>
             <span>Notification</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="user.php">
+            <i class="fas fa-fw fa-user-cog"></i>
+            <span>Users</span>
         </a>
     </li>
 </ul>
