@@ -133,14 +133,22 @@ $db = new db_class();
                                             $payee = $db->conn->real_escape_string($_GET['payee_id']);
                                             $where = " WHERE payment.payee = '$payee' ";
                                         }
-                                        $tbl_payment = $db->conn->query("SELECT * FROM payment INNER JOIN loan ON payment.loan_id=loan.loan_id $where");
+                                        $tbl_payment = $db->conn->query("SELECT payment.*, borrower.firstname, borrower.middlename, borrower.lastname, loan.ref_no, payment.pay_amount, payment.penalty, payment.payment_date FROM payment INNER JOIN loan ON payment.loan_id=loan.loan_id INNER JOIN borrower ON loan.borrower_id=borrower.borrower_id $where");
                                         $i = 1;
                                         while ($fetch = $tbl_payment->fetch_array()) {
                                         ?>
                                             <tr>
                                                 <td><?php echo $i++ ?></td>
                                                 <td><?php echo $fetch['ref_no'] ?></td>
-                                                <td><?php echo $fetch['payee'] ?></td>
+                                                <td>
+                                                    <?php
+                                                    echo isset($fetch['firstname']) ? htmlspecialchars($fetch['firstname']) : '';
+                                                    if (!empty($fetch['middlename'])) {
+                                                        echo ' ' . htmlspecialchars($fetch['middlename']);
+                                                    }
+                                                    echo isset($fetch['lastname']) ? ' ' . htmlspecialchars($fetch['lastname']) : '';
+                                                    ?>
+                                                </td>
                                                 <td><?php echo "&#36; " . number_format($fetch['pay_amount'], 2) ?></td>
                                                 <td><?php echo "&#36; " . number_format($fetch['penalty'], 2) ?></td>
                                                 <td><?php echo htmlspecialchars($fetch['payment_date']); ?></td>

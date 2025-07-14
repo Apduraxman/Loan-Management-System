@@ -285,6 +285,8 @@ class db_class extends db_connect
 		return false;
 	}
 
+	// Display_loan 
+
 	public function display_loan()
 	{
 		$query = $this->conn->prepare("SELECT * FROM `loan` INNER JOIN `borrower` ON loan.borrower_id=borrower.borrower_id INNER JOIN `loan_type` ON loan.ltype_id=loan_type.ltype_id INNER JOIN `loan_plan` ON loan.lplan_id=loan_plan.lplan_id") or die($this->conn->error);
