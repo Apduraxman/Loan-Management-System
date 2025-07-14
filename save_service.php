@@ -1,9 +1,8 @@
 <?php
-
 require_once 'admin/class.php';
 $db = new db_class();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if (isset($_POST['save'])) {
     $guarantor_full_name = $_POST['guarantor_full_name'];
     $gender = $_POST['gender'];
     $address = $_POST['address'];
@@ -12,27 +11,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $company_name = $_POST['company_name'];
     $national_id = $_POST['national_id'];
     $service_description = $_POST['service_description'];
-    $documentation = '';
+    $customer_id = isset($_POST['customer_id']) ? intval($_POST['customer_id']) : 0; // Add this line
 
-    // Handle file upload
-    if (isset($_FILES['documentation']) && $_FILES['documentation']['error'] == UPLOAD_ERR_OK) {
-        $upload_dir = 'uploads/';
-        if (!is_dir($upload_dir)) {
-            mkdir($upload_dir, 0777, true);
-        }
-        $file_name = time() . '_' . basename($_FILES['documentation']['name']);
-        $target_file = $upload_dir . $file_name;
-        if (move_uploaded_file($_FILES['documentation']['tmp_name'], $target_file)) {
-            $documentation = $file_name;
-        }
+    if ($customer_id == 0) {
+        die("Invalid customer. Please login again.");
     }
 
-    // Insert into database
-    $stmt = $db->conn->prepare("INSERT INTO services 
-        (guarantor_full_name, gender, address, contact, job, company_name, national_id, service_description, documentation) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    // Handle file upload
+    $documentation = '';
+    if (isset($_FILES['documentation']) && $_FILES['documentation']['error'] == UPLOAD_ERR_OK) {
+        $ext = pathinfo($_FILES['documentation']['name'], PATHINFO_EXTENSION);
+        $filename = uniqid() . '.' . $ext;
+        move_uploaded_file($_FILES['documentation']['tmp_name'], 'uploads/' . $filename);
+        $documentation = $filename;
+    }
+
+    // Add customer_id to the query and binding
+    $stmt = $db->conn->prepare("INSERT INTO services (guarantor_full_name, gender, address, contact, job, company_name, national_id, service_description, documentation, customer_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
     $stmt->bind_param(
-        "sssssssss",
+        "sssssssssi",
         $guarantor_full_name,
         $gender,
         $address,
@@ -41,12 +38,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $company_name,
         $national_id,
         $service_description,
-        $documentation
+        $documentation,
+        $customer_id
     );
     $stmt->execute();
     $stmt->close();
 
-    echo "<script>alert('Service saved successfully!');window.location='services.php';</script>";
-} else {
-    echo "<script>alert('Invalid request!');window.location='services.php';</script>";
+    header("Location: services.php?msg=Service added successfully");
+    exit;
 }
+?>

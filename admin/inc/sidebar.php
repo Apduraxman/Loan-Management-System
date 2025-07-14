@@ -68,12 +68,19 @@
             <span>Notification</span>
         </a>
     </li>
+     <li class="nav-item">
+        <a class="nav-link" href="guarantor_view.php">
+            <i class="fas fa-fw fa-eye"></i>
+            <span>Guarantor Services View</span>
+        </a>
+    </li>
     <li class="nav-item">
         <a class="nav-link" href="user.php">
             <i class="fas fa-fw fa-user-cog"></i>
             <span>Users</span>
         </a>
     </li>
+   
 </ul>
 
 <!-- End of Sidebar -->
