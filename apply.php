@@ -48,8 +48,8 @@ $loanPlans = $db->display_lplan();
                                         <ul id="navigation">
                                             <li><a href="index.php">Home</a></li>
                                             <li><a href="about.php">About</a></li>
-                                            <li><a href="services.html">Services</a></li>
-                                           <li><a href="blog.html">Blog</a>
+                                            <li><a href="services.php">Services</a></li>
+                                            <li><a href="blog.html">Blog</a>
                                                 <ul class="submenu">
                                                     <li><a href="blog.html">Blog</a></li>
                                                     <li><a href="my_payment.php">my payments</a></li>
@@ -61,7 +61,7 @@ $loanPlans = $db->display_lplan();
                                         </ul>
                                     </nav>
                                 </div>
-                               
+
                             </div>
                         </div>
                         <div class="col-12">

@@ -50,31 +50,37 @@ if ($is_admin) {
         body {
             background: #f8f9fa;
         }
+
         .loan-table-area {
             background: #fff;
             border-radius: 12px;
-            box-shadow: 0 0 16px rgba(0,0,0,0.07);
+            box-shadow: 0 0 16px rgba(0, 0, 0, 0.07);
             max-width: 1100px;
             margin: 40px auto 40px auto;
             padding: 40px 30px 30px 30px;
         }
+
         .loan-table-area h4 {
             font-weight: 700;
             color: #001F3F;
         }
+
         .table thead th {
             background: #001F3F;
             color: #fff;
             font-weight: 600;
         }
+
         .btn-secondary {
             border-radius: 6px;
             font-weight: 600;
         }
+
         .slider-area {
             background: linear-gradient(90deg, #e0e7ef 0%, #f8fafc 100%);
             padding: 40px 0 0 0;
         }
+
         .hero-cap h2 {
             font-size: 2.2rem;
             font-weight: 700;
@@ -105,7 +111,7 @@ if ($is_admin) {
                                         <ul id="navigation">
                                             <li><a href="index.php">Home</a></li>
                                             <li><a href="about.php">About</a></li>
-                                            <li><a href="services.html">Services</a></li>
+                                            <li><a href="services.php">Services</a></li>
                                             <li><a href="blog.html">Blog</a>
                                                 <ul class="submenu">
                                                     <li><a href="blog.html">Blog</a></li>
@@ -118,11 +124,11 @@ if ($is_admin) {
                                         </ul>
                                     </nav>
                                 </div>
-                                
+
                             </div>
                         </div>
                         <div class="col-12">
-            <div class="mobile_menu d-block d-lg-none"></div>
+                            <div class="mobile_menu d-block d-lg-none"></div>
                         </div>
                     </div>
                 </div>

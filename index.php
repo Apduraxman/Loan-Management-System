@@ -41,57 +41,55 @@ if ($customer_id) {
     <link rel="stylesheet" href="assets/css/nice-select.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <style>
+        .dropdown-toggle-custom {
+            background-color: #001F3F;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            padding: 30px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            position: relative;
+        }
 
-    
-    .dropdown-toggle-custom {
-        background-color: #001F3F;
-        color: white;
-        font-size: 16px;
-        font-weight: 600;
-        padding: 30px 20px;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        position: relative;
-    }
+        .dropdown-toggle-custom .plus-icon {
+            font-size: 20px;
+            margin-left: 10px;
+            color: #FFD700;
+            font-weight: bold;
+        }
 
-    .dropdown-toggle-custom .plus-icon {
-        font-size: 20px;
-        margin-left: 10px;
-        color: #FFD700;
-        font-weight: bold;
-    }
+        .admin-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            min-width: 180px;
+            padding: 10px 0;
+            z-index: 1000;
+        }
 
-    .admin-dropdown {
-        display: none;
-        position: absolute;
-        top: 100%;
-        right: 0;
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        min-width: 180px;
-        padding: 10px 0;
-        z-index: 1000;
-    }
+        .admin-dropdown li {
+            list-style: none;
+        }
 
-    .admin-dropdown li {
-        list-style: none;
-    }
+        .admin-dropdown li a {
+            display: block;
+            padding: 10px 20px;
+            font-size: 12px;
+            color: #333;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
 
-    .admin-dropdown li a {
-        display: block;
-        padding: 10px 20px;
-        font-size: 12px;
-        color: #333;
-        text-decoration: none;
-        transition: background-color 0.3s ease;
-    }
-
-    .admin-dropdown li a:hover {
-        background-color: #f1f1f1;
-        color: #001F3F;
-    }
+        .admin-dropdown li a:hover {
+            background-color: #f1f1f1;
+            color: #001F3F;
+        }
 
 
         .fa-bell {
@@ -167,27 +165,27 @@ if ($customer_id) {
     <!-- Preloader End -->
 
     <!-- Header Start -->
-<header>
+    <header>
         <!-- Header Start -->
         <div class="header-area header-transparent">
-                <div class="main-header  header-sticky">
-                    <div class="container-fluid">
-                        <div class="row align-items-center">
-                            <!-- Logo -->
-                            <div class="col-xl-2 col-lg-2 col-md-1">
-                                <div class="logo">
-                                    <a href="index.php"><img src="assets/img/logo/ips.png" alt="Logo" width="90" height="90" style="width:90px; height:90px;"></a>
-                                </div>
+            <div class="main-header  header-sticky">
+                <div class="container-fluid">
+                    <div class="row align-items-center">
+                        <!-- Logo -->
+                        <div class="col-xl-2 col-lg-2 col-md-1">
+                            <div class="logo">
+                                <a href="index.php"><img src="assets/img/logo/ips.png" alt="Logo" width="90" height="90" style="width:90px; height:90px;"></a>
                             </div>
-                            <div class="col-xl-10 col-lg-10 col-md-10">
+                        </div>
+                        <div class="col-xl-10 col-lg-10 col-md-10">
                             <div class="menu-main d-flex align-items-center justify-content-end">
                                 <!-- Main-menu -->
                                 <div class="main-menu f-right d-none d-lg-block">
-                                    <nav> 
-                                        <ul id="navigation">  
+                                    <nav>
+                                        <ul id="navigation">
                                             <li class="active"><a href="index.php">Home</a></li>
                                             <li><a href="about.php">About</a></li>
-                                            <li><a href="services.html">Services</a></li>
+                                            <li><a href="services.php">Services</a></li>
                                             <li><a href="blog.html">Blog</a>
                                                 <ul class="submenu">
                                                     <li><a href="blog.html">Blog</a></li>
@@ -224,18 +222,18 @@ if ($customer_id) {
                                 <?php endif; ?>
 
                             </div>
-                            </div>   
-                            <!-- Mobile Menu -->
-                            <div class="col-12">
-                                <div class="mobile_menu d-block d-lg-none"></div>
-                            </div>
+                        </div>
+                        <!-- Mobile Menu -->
+                        <div class="col-12">
+                            <div class="mobile_menu d-block d-lg-none"></div>
                         </div>
                     </div>
                 </div>
+            </div>
         </div>
         <!-- Header End -->
     </header>
-<!-- Header End -->
+    <!-- Header End -->
 
     <script>
         function toggleFabMenu() {
@@ -573,34 +571,34 @@ if ($customer_id) {
                                     <li><a href="#"><i class="fas fa-globe"></i></a></li>
                                 </div>
                             </div>
-                                    <li><a href="#"><i class="fas fa-globe"></i></a></li>
-                                </div>
-                            </div>
-                            <div class="team-caption">
-                                <h3><a href="#">Bruce Roberts</a></h3>
-                                <p>Volunteer leader</p>
-                            </div>
+                            <li><a href="#"><i class="fas fa-globe"></i></a></li>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6">
-                        <div class="single-team mb-30">
-                            <div class="team-img">
-                                <img src="assets/img/gallery/home_blog4.png" alt="">
-                                <!-- Blog Social -->
-                                <div class="team-social">
-                                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                    <li><a href="#"><i class="fas fa-globe"></i></a></li>
-                                </div>
-                            </div>
-                            <div class="team-caption">
-                                <h3><a href="#">Bruce Roberts</a></h3>
-                                <p>Volunteer leader</p>
-                            </div>
-                        </div>
+                    <div class="team-caption">
+                        <h3><a href="#">Bruce Roberts</a></h3>
+                        <p>Volunteer leader</p>
                     </div>
                 </div>
             </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="single-team mb-30">
+                    <div class="team-img">
+                        <img src="assets/img/gallery/home_blog4.png" alt="">
+                        <!-- Blog Social -->
+                        <div class="team-social">
+                            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fas fa-globe"></i></a></li>
+                        </div>
+                    </div>
+                    <div class="team-caption">
+                        <h3><a href="#">Bruce Roberts</a></h3>
+                        <p>Volunteer leader</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
         </div>
         <!-- Team Ara End -->
         <!-- Testimonial Start -->
@@ -795,19 +793,19 @@ if ($customer_id) {
         <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
     </div>
     <!-- JS here -->
-     <script>
-    function toggleAdminDropdown() {
-        const dropdown = document.getElementById("adminDropdown");
-        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
-    }
-
-    // Optional: Close dropdown when clicking outside
-    window.onclick = function(event) {
-        if (!event.target.closest('.header-right-btn')) {
-            document.getElementById("adminDropdown").style.display = "none";
+    <script>
+        function toggleAdminDropdown() {
+            const dropdown = document.getElementById("adminDropdown");
+            dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
         }
-    }
-</script>
+
+        // Optional: Close dropdown when clicking outside
+        window.onclick = function(event) {
+            if (!event.target.closest('.header-right-btn')) {
+                document.getElementById("adminDropdown").style.display = "none";
+            }
+        }
+    </script>
 
     <script src="assets/js/vendor/modernizr-3.5.0.min.js"></script>
     <script src="assets/js/vendor/jquery-1.12.4.min.js"></script>
